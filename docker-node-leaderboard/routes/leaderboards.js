@@ -43,7 +43,9 @@ module.exports = {
     // await result
     promise
       .then(result => {
-        res.send(result)
+        res.send({
+          data: result
+        })
       })
       .catch(err => {
         res.send(err)
