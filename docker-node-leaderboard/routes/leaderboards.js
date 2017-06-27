@@ -33,7 +33,8 @@ module.exports = {
     let table = req.params.table
     let limit = Number(req.query.limit) || 999
     // mongodb
-    let schema = table === 'temps' ? TEMP_SCHEMA : SCHEMA // short or long ttl
+    let startWithTemps = table.lastIndexOf('temps', 0) === 0
+    let schema = startWithTemps ? TEMP_SCHEMA : SCHEMA // short or long ttl
     let Leaderboard = mongoose.tryModel(table, schema)
     let promise = Leaderboard
       .find()
