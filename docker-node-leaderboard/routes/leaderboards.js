@@ -6,7 +6,7 @@ const SCHEMA = new Schema({
   score: Number, 
   createdAt: {
     type: Date,
-    expires: 604800, // 1 week
+    expires: '604800s', // 1 week
     default: Date.now,
     index: true
   }
@@ -16,7 +16,7 @@ const TEMP_SCHEMA = new Schema({
   score: Number, 
   createdAt: {
     type: Date,
-    expires: 86400, // 1 day
+    expires: '86400s', // 1 day
     default: Date.now,
     index: true
   }
