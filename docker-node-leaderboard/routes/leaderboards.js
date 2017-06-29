@@ -6,7 +6,7 @@ const SCHEMA = new Schema({
   score: Number, 
   createdAt: {
     type: Date,
-    expires: '2419200s', // 1 week
+    expires: process.env.exp, // 1 month
     default: Date.now,
     index: true
   }
@@ -16,7 +16,7 @@ const TEMP_SCHEMA = new Schema({
   score: Number, 
   createdAt: {
     type: Date,
-    expires: '604800s', // 1 day
+    expires: process.env.expt, // 1 week
     default: Date.now,
     index: true
   }
@@ -64,7 +64,8 @@ module.exports = {
     let name = req.query.name || 'AAA'
     let score = Number(req.query.score) || 999999
     // mongodb
-    let schema = table === 'temps' ? TEMP_SCHEMA : SCHEMA // short or long ttl
+    let startWithTemps = table.lastIndexOf('temps', 0) === 0
+    let schema = startWithTemps ? TEMP_SCHEMA : SCHEMA // short or long ttl
     let Leaderboard = mongoose.tryModel(table, schema)
     let lb = new Leaderboard({ 
       name: name, 
